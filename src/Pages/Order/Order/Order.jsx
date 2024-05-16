@@ -7,10 +7,13 @@ import useMenu from '../../../hooks/useMenu';
 import FoodCard from '../../../Component/FoodCard/FoodCard';
 import OrderTabs from '../OrderTabs/OrderTabs';
 import { driver } from 'localforage';
+import { useParams } from 'react-router-dom';
 
 const Order = () => {
       const [tabIndex, setTabIndex] = useState(0);
       const [menu] = useMenu();
+      const { category } = useParams()
+      console.log(category);
       const dessert = menu.filter(item => item.category === 'dessert');
       const pizza = menu.filter(item => item.category === 'pizza');
       const salad = menu.filter(item => item.category === 'salad');
