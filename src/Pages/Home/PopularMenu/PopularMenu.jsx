@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import SectionTitle from '../../../Component/SectionTitle/SectionTitle';
-import Category from './../Category/Category';
 import MenuItem from '../../Shared/MenuItem/MenuItem';
 
 const PopularMenu = () => {
@@ -17,7 +16,7 @@ const PopularMenu = () => {
             <section>
                   <SectionTitle
                         heading='FROM OUR MENU'
-                        subHeading='Check it out'
+                        subHeading='Popular Menu'
                   />
                   <div className='grid md:grid-cols-2 gap-6'>
                         {

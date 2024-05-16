@@ -28,27 +28,27 @@ const Category = () => {
                               clickable: true,
                         }}
                         modules={[Pagination]}
-                        className="mySwiper mb-24"
+                        className="mySwiper md:mb-24"
                   >
                         <SwiperSlide>
                               <img src={banner1} alt="" />
-                              <p className='text-4xl text-center uppercase text-white -mt-24'>salads</p>
+                              <p className='md:text-4xl text-center uppercase -mt-8 text-white md:-mt-24'>salads</p>
                         </SwiperSlide>
                         <SwiperSlide>
                               <img src={banner2} alt="" />
-                              <p className='text-4xl text-center uppercase text-white -mt-24'>Soups</p>
+                              <p className='md:text-4xl text-center uppercase -mt-8 text-white md:-mt-24'>Soups</p>
                         </SwiperSlide>
                         <SwiperSlide>
                               <img src={banner3} alt="" />
-                              <p className='text-4xl text-center uppercase text-white -mt-24'>pizzas</p>
+                              <p className='md:text-4xl text-center uppercase -mt-8 text-white md:-mt-24'>pizzas</p>
                         </SwiperSlide>
                         <SwiperSlide>
                               <img src={banner4} alt="" />
-                              <p className='text-4xl text-center uppercase text-white -mt-24'>pizzas</p>
+                              <p className='md:text-4xl text-center uppercase -mt-8 text-white md:-mt-24'>pizzas</p>
                         </SwiperSlide>
                         <SwiperSlide>
                               <img src={banner5} alt="" />
-                              <p className='text-4xl text-center uppercase text-white '>salads</p>
+                              <p className='md:text-4xl text-center uppercase -mt-8 text-white '>salads</p>
                         </SwiperSlide>
                         
                   </Swiper>
