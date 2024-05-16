@@ -12,40 +12,47 @@ import 'swiper/css/pagination';
 
 //import './styles.css';
 import { Pagination } from 'swiper/modules';
+import SectionTitle from '../../../Component/SectionTitle/SectionTitle';
 
 const Category = () => {
       return (
-            <Swiper
-                  slidesPerView={4}
-                  spaceBetween={30}
-                  pagination={{
-                        clickable: true,
-                  }}
-                  modules={[Pagination]}
-                  className="mySwiper mb-24"
-            >
-                  <SwiperSlide>
-                        <img src={banner1} alt="" />
-                        <p className='text-4xl text-center uppercase text-white -mt-24'>salads</p>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                        <img src={banner2} alt="" />
-                        <p className='text-4xl text-center uppercase text-white -mt-24'>Soups</p>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                        <img src={banner3} alt="" />
-                        <p className='text-4xl text-center uppercase text-white -mt-24'>pizzas</p>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                        <img src={banner4} alt="" />
-                        <p className='text-4xl text-center uppercase text-white -mt-24'>pizzas</p>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                        <img src={banner5} alt="" />
-                        <p className='text-4xl text-center uppercase text-white '>salads</p>
-                  </SwiperSlide>
-                  
-            </Swiper>
+            <div>
+                  <SectionTitle
+                        heading='ORDER ONLINE'
+                        subHeading='From 11:00am to 10:00pm'
+                  />
+                  <Swiper
+                        slidesPerView={4}
+                        spaceBetween={30}
+                        pagination={{
+                              clickable: true,
+                        }}
+                        modules={[Pagination]}
+                        className="mySwiper mb-24"
+                  >
+                        <SwiperSlide>
+                              <img src={banner1} alt="" />
+                              <p className='text-4xl text-center uppercase text-white -mt-24'>salads</p>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                              <img src={banner2} alt="" />
+                              <p className='text-4xl text-center uppercase text-white -mt-24'>Soups</p>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                              <img src={banner3} alt="" />
+                              <p className='text-4xl text-center uppercase text-white -mt-24'>pizzas</p>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                              <img src={banner4} alt="" />
+                              <p className='text-4xl text-center uppercase text-white -mt-24'>pizzas</p>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                              <img src={banner5} alt="" />
+                              <p className='text-4xl text-center uppercase text-white '>salads</p>
+                        </SwiperSlide>
+                        
+                  </Swiper>
+            </div>
       );
 };
 
