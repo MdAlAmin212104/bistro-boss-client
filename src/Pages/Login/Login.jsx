@@ -1,11 +1,33 @@
+import { useEffect, useRef, useState } from 'react';
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+
 const Login = () => {
-    const handleLogin = e => {
-        e.preventDefault();
-        const form = e.target
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email, password);
+  const captchaRef = useRef(null)
+  const [disable, setDisable]= useState(true)
+
+  useEffect(() =>{
+    loadCaptchaEnginge(6);
+  },[])
+
+
+  const handleLogin = e => {
+    e.preventDefault();
+    const form = e.target
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+  }
+
+  const handleValidateCaptcha = () => {
+    const user_captcha_value = captchaRef.current.value;
+    console.log(user_captcha_value);
+    if(validateCaptcha(user_captcha_value, false) == true){
+      setDisable(false);
     }
+    else{
+      setDisable(true);
+    }
+  }
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="md:hero-content md:flex">
@@ -48,8 +70,21 @@ const Login = () => {
                 </a>
               </label>
             </div>
+            <div className="form-control">
+              <label className="label">
+                <LoadCanvasTemplate />
+              </label>
+              <input
+                type="password"
+                ref={captchaRef}
+                name="captcha"
+                placeholder="type the captcha above"
+                className="input input-bordered"
+              />
+              <button onClick={handleValidateCaptcha} className='btn btn-outline btn-xs mt-2'>Validate</button>
+            </div>
             <div className="form-control mt-6">
-              <input className="btn" type="submit" value='Login' />
+              <input disabled={disable} className="btn btn-primary" type="submit" value='Login' />
             </div>
           </form>
         </div>
