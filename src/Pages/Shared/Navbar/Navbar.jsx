@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
@@ -10,7 +9,7 @@ const Navbar = () => {
             <li><NavLink to='/'>DASHBOARD</NavLink></li>
             <li><NavLink to='/menu'>OUR MENU</NavLink></li>
             <li><NavLink to='/order'>OUR SHOP</NavLink></li>
-            <li><NavLink to='/'>Our Menu</NavLink></li>
+            <li><NavLink to='/login'>login</NavLink></li>
       </>
       return (
             <div className="navbar fixed z-40 bg-opacity-30 bg-black text-white max-w-screen-xl">
