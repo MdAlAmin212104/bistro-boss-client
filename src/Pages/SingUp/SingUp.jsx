@@ -1,37 +1,41 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
+import Swal from "sweetalert2";
 
 const SingUp = () => {
-    const {createUser} = useContext(AuthContext)
+    const {createUser, updateUserProfile } = useContext(AuthContext)
+    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
         watch,
+        reset,
         formState: { errors },
     } = useForm()
 
     const onSubmit = (data) => {
-        const { email, password } = data;
+      //console.log(data);
+        const { email, password, name, photo } = data;
         createUser(email, password)
-            .then(res => {
-                console.log(res.user);
+            .then(() => {
+                updateUserProfile(name, photo)
+                  .then(() => {
+                    Swal.fire("update user successfully");
+                    reset();
+                    navigate('/')
+                    
+                  })
+                  .catch(err => console.error(err))
             })
+            
             .catch(err => console.error(err));
     };
 
     console.log(watch("email"))
 
 
-    // const handleSingUp = (e) => {
-    //     e.preventDefault();
-    //     const form = e.target
-    //     const email = form.email.value;
-    //     const password = form.password.value;
-    //     
-  
-    // }
 
 
   return (
@@ -62,6 +66,20 @@ const SingUp = () => {
             </div>
             <div className="form-control">
               <label className="label">
+                <span className="label-text">PhotoURL</span>
+              </label>
+              <input
+                type="text"
+                name="photo"
+                {...register("photo")}
+                placeholder="Photo URL"
+                className="input input-bordered"
+                required
+              />
+              {errors.photo && <span className="text-red-400">This field is required</span>}
+            </div>
+            <div className="form-control">
+              <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
@@ -72,6 +90,7 @@ const SingUp = () => {
                 className="input input-bordered"
                 required
               />
+              {errors.email && <span className="text-red-400">This field is required</span>}
             </div>
             <div className="form-control">
               <label className="label">
@@ -85,7 +104,7 @@ const SingUp = () => {
                 className="input input-bordered"
                 required
               />
-              {errors.password && <span>This field is required</span>}
+              {errors.password && <span className="text-red-400">This field is required</span>}
             </div>
             <div className="form-control mt-6">
               <input className="btn btn-primary" type="submit" value="SingUp" />
