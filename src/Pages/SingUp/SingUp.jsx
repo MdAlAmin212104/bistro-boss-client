@@ -13,7 +13,12 @@ const SingUp = () => {
     } = useForm()
 
     const onSubmit = (data) => {
-        console.log(data)
+        const { email, password } = data;
+        createUser(email, password)
+            .then(res => {
+                console.log(res.user);
+            })
+            .catch(err => console.error(err));
     };
 
     console.log(watch("email"))
@@ -24,12 +29,7 @@ const SingUp = () => {
     //     const form = e.target
     //     const email = form.email.value;
     //     const password = form.password.value;
-    //     createUser(email, password)
-    //         .then(res => {
-    //             console.log(res.user);
-    //             form.reset();
-    //         })
-    //         .catch(err => console.error(err));
+    //     
   
     // }
 

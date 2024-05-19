@@ -1,10 +1,10 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-  const captchaRef = useRef(null)
   const [disable, setDisable]= useState(true)
   const { singInUser } = useContext(AuthContext)
 
@@ -19,14 +19,18 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     singInUser(email, password)
-      .then(res => {
-        console.log(res.user);
+      .then(() => {
+        Swal.fire({
+          title: "User login successful",
+          text: "That thing is still around?",
+          icon: "question"
+        });
       })  
       .catch(err => console.error(err));
   }
 
-  const handleValidateCaptcha = () => {
-    const user_captcha_value = captchaRef.current.value;
+  const handleValidateCaptcha = (e) => {
+    const user_captcha_value = e.target.value;
     console.log(user_captcha_value);
     if(validateCaptcha(user_captcha_value, false) == true){
       setDisable(false);
@@ -82,13 +86,13 @@ const Login = () => {
                 <LoadCanvasTemplate />
               </label>
               <input
+                onBlur={handleValidateCaptcha}
                 type="password"
-                ref={captchaRef}
                 name="captcha"
                 placeholder="type the captcha above"
                 className="input input-bordered"
               />
-              <button onClick={handleValidateCaptcha} className='btn btn-outline btn-xs mt-2'>Validate</button>
+              <button className='btn btn-outline btn-xs mt-2'>Validate</button>
             </div>
             <div className="form-control mt-6">
               <input disabled={disable} className="btn btn-primary" type="submit" value='Login' />
