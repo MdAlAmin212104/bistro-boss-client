@@ -11,6 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || '/'
 
+  console.log('user form location state', location.state);
   useEffect(() =>{
     loadCaptchaEnginge(6);
   },[])
@@ -91,14 +92,14 @@ const Login = () => {
               </label>
               <input
                 onBlur={handleValidateCaptcha}
-                type="password"
+                type="text"
                 name="captcha"
                 placeholder="type the captcha above"
                 className="input input-bordered"
               />
-              <button className='btn btn-outline btn-xs mt-2'>Validate</button>
             </div>
             <div className="form-control mt-6">
+            
               <input disabled={disable} className="btn btn-primary" type="submit" value='Login' />
             </div>
           </form>

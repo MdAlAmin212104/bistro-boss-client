@@ -1,18 +1,40 @@
-import { useContext } from "react";
-import { AuthContext } from "../../Provider/AuthProvider";
+
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 
 const FoodCard = ({item}) => {
       const {user} = useAuth()
       const navigate = useNavigate()
-      const {image, recipe, price, name } = item;
+      const {_id, image, recipe, price, name } = item;
+      const location = useLocation()
+
       const handleAddToCard = (item) => {
             if(user && user.email){
+                  console.log(user.email, item);
+                  const cartItem = {
+                        menuId : _id,
+                        email : user.email,
+                        name,
+                        price,
 
+                  }
+                  axios.post('http://localhost:5000/carts', cartItem)
+                        .then(res => {
+                              console.log(res.data);
+                              if(res.data.insertedId){
+                                    Swal.fire({
+                                          position: "top-end",
+                                          icon: "success",
+                                          title: `${name} added to the cart`,
+                                          showConfirmButton: false,
+                                          timer: 1500
+                                    });
+                              }
+                        })
             }
             else{
                   Swal.fire({
@@ -25,7 +47,7 @@ const FoodCard = ({item}) => {
                         confirmButtonText: "Yes, login!"
                       }).then((result) => {
                         if (result.isConfirmed) {
-                          navigate('/login')
+                          navigate('/login', {state: {from : location}})
                         }
                   });
             }
