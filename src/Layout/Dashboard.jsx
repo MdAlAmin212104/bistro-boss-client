@@ -1,9 +1,12 @@
-import { FaCalendar, FaHome, FaList, FaShoppingCart } from "react-icons/fa";
+import { FaCalendar, FaEnvelope, FaHome, FaList, FaShoppingCart, FaVoicemail } from "react-icons/fa";
 import { LuMenuSquare } from "react-icons/lu";
 import { MdOutlineReviews } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
+
+    // todo : get Admin from the database
+    const isAdmin = true;
     return (
         <div className="flex">
             {/* dashboard asidebar */}
@@ -34,14 +37,19 @@ const Dashboard = () => {
                         <FaList/>
                             My Booking</NavLink>
                     </li>
+                    {/* shared NavLinks */}
                     <div className="divider"></div> 
                     <li>
                         <NavLink to='/'>
                         <FaHome/>Home</NavLink>
                     </li>
                     <li>
-                        <NavLink to='/menu'>
+                        <NavLink to='/order/salad'>
                         <LuMenuSquare />Menu</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/order/contact'>
+                        <FaEnvelope />Contact</NavLink>
                     </li>
                 </ul>
             </div>

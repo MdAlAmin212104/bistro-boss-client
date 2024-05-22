@@ -18,8 +18,8 @@ const SocialLogin = () => {
                 }
                 axiosPublic.post('/user', userInfo)
                     .then(() => {
-                        Swal.fire("update login successfully");
-                        navigate('/')
+                      Swal.fire("update login successfully");
+                      navigate('/')
                     })
             })
             .catch(err => console.error(err));
