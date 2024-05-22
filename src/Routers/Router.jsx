@@ -7,6 +7,7 @@ import Login from "../Pages/Login/Login";
 import SingUp from "../Pages/SingUp/SingUp";
 import Dashboard from "../Layout/Dashboard";
 import Cart from "../Pages/Dashboard/Cart/Cart";
+import PrivateRoutes from "./Private/PrivateRoutes";
 
 export const Router = createBrowserRouter([
       {
@@ -37,10 +38,10 @@ export const Router = createBrowserRouter([
       },
       {
             path: 'dashboard',
-            element: <Dashboard/>,
+            element: <PrivateRoutes><Dashboard/></PrivateRoutes>,
             children: [
                   {
-                        path : 'cart',
+                        path : '/dashboard/cart',
                         element: <Cart/>,
                   }
             ]
