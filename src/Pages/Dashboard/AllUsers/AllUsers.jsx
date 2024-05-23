@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
   const { data: users = [], refetch } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", ],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
       return res.data;
@@ -15,6 +15,17 @@ const AllUsers = () => {
 
   const handleMakeAdmin = user => {
     console.log(user);
+    axiosSecure.patch(`/user/admin/${user}`)
+      .then(res => {
+        if(res.data.modifiedCount > 0){
+          refetch()
+          Swal.fire({
+            title: "Your admin set success!",
+            text: "Your file has been updated.",
+            icon: "success",
+          });
+        }
+      })
   }
 
   const handleDelete = id => {
@@ -69,12 +80,16 @@ const AllUsers = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>
-                  <button
-                    onClick={handleMakeAdmin(user._id)}
-                    className="btn btn-lg bg-orange-400"
-                  >
-                    <FaUsers className="text-white" />
-                  </button>
+                  {
+                    user.role === "admin"
+                     ? "Admin"
+                      : <button
+                      onClick={()=>handleMakeAdmin(user._id)}
+                      className="btn btn-lg bg-orange-400"
+                    >
+                      <FaUsers className="text-white" />
+                    </button>
+                  }
                 </td>
 
                 <td>
