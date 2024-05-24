@@ -6,7 +6,7 @@ const useMenu = () => {
       const axiosPublic = useAxiosPublic()
       //const [menu, setMenu] = useState([])
       //const [loading, setLoading] = useState(true)
-      const { data: menu =[] } = useQuery({
+      const { data: menu =[], isPending : loading,  refetch } = useQuery({
             queryKey : ['menu'],
             queryFn : async () =>{
                   const res = await axiosPublic.get('/menu')
@@ -14,7 +14,7 @@ const useMenu = () => {
             }
             
       })
-      return [menu]
+      return [menu, refetch, loading]
       
       // useEffect(() => {
       //       fetch('http://localhost:5000/menu')

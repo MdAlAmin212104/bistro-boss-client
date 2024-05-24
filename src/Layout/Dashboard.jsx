@@ -16,7 +16,6 @@ import useAdmin from "../hooks/useAdmin";
 const Dashboard = () => {
   // todo : get Admin from the database
   const [isAdmin] = useAdmin();
-  console.log(isAdmin);
 
   return (
     <div className="flex">

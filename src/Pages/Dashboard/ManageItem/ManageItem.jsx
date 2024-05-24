@@ -1,12 +1,40 @@
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import SectionTitle from "../../../Component/SectionTitle/SectionTitle";
 import useMenu from "../../../hooks/useMenu";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageItem = () => {
-  const [menu] = useMenu();
-  const handleDelete = id => {
-    console.log(id);
-  }
+  const [menu, refetch] = useMenu();
+  const axiosSecure = useAxiosSecure();
+  const handleEdit = () => {
+    console.log("edit");
+  };
+
+  const handleDelete = async (item) => {
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/menu/${item._id}`);
+        if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+                title: "Deleted!",
+                text: `${item.name} has been deleted.`,
+                icon: "success",
+            });
+        }
+      }
+    });
+  };
   return (
     <div className="bg-[#F3F3F3] pb-4">
       <SectionTitle subHeading="Hurry Up!" heading="MANAGE ALL ITEMS" />
@@ -25,45 +53,41 @@ const ManageItem = () => {
               </tr>
             </thead>
             <tbody>
-              {
-                menu.map((item, idx) => <tr key={item._id}>
-                    <td> {idx + 1}</td>
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
-                            <img
-                              src={item.image}
-                              alt="Avatar Tailwind CSS Component"
-                            />
-                          </div>
+              {menu.map((item, idx) => (
+                <tr key={item._id}>
+                  <td> {idx + 1}</td>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src={item.image}
+                            alt="Avatar Tailwind CSS Component"
+                          />
                         </div>
                       </div>
-                    </td>
-                    <td>{item.name}</td>
-                    <td>{item.price}</td>
-                    <td>
+                    </div>
+                  </td>
+                  <td>{item.name}</td>
+                  <td>{item.price}</td>
+                  <td>
                     <button
-                      onClick={()=>handleEdit(item._id)}
+                      onClick={() => handleEdit(item)}
                       className="btn btn-lg bg-[#D1A054]"
                     >
                       <FaEdit className="text-white" />
                     </button>
-                    </td>
-                    <td>
+                  </td>
+                  <td>
                     <button
-                    onClick={() => handleDelete(item._id)}
-                    className="btn btn-lg bg-red-500"
-                  >
-                    <FaTrashAlt className="text-white" />
-                  </button>
-                    </td>
-                  </tr>
-                  )
-              }
-              
-              
-              
+                      onClick={() => handleDelete(item)}
+                      className="btn btn-lg bg-red-500"
+                    >
+                      <FaTrashAlt className="text-white" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
