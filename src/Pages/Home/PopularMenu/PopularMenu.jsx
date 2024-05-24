@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+
 import SectionTitle from '../../../Component/SectionTitle/SectionTitle';
 import MenuItem from '../../Shared/MenuItem/MenuItem';
 import useMenu from '../../../hooks/useMenu';
@@ -6,7 +6,6 @@ import useMenu from '../../../hooks/useMenu';
 const PopularMenu = () => {
       const [menu] = useMenu()
       const popularItem = menu.filter(item => item.category === 'popular')
-      
       return (
             <section>
                   <SectionTitle

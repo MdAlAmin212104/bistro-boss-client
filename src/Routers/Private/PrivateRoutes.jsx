@@ -1,10 +1,10 @@
 
 import { Navigate, useLocation } from "react-router-dom";
-import auth from "../../firebase/firebase_config";
+import useAuth from "../../hooks/useAuth";
 /* eslint-disable react/prop-types */
 
 const PrivateRoutes = ({children}) => {
-    const { user, loading } = auth();
+    const { user, loading } = useAuth()
     const location = useLocation()
     if(loading){
         return <span className="loading loading-dots loading-md"></span>

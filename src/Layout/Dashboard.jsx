@@ -32,7 +32,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/adminItem">
+                <NavLink to="/dashboard/addItem">
                   <FaUtensils />
                   Add items
                 </NavLink>
