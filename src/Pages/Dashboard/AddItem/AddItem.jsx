@@ -2,11 +2,14 @@ import { FaUtensils } from "react-icons/fa";
 import SectionTitle from "../../../Component/SectionTitle/SectionTitle";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 
 const AddItem = () => {
-  const { register, handleSubmit } = useForm();
-  const axiosPublic = useAxiosPublic()
+  const { register, handleSubmit, reset } = useForm();
+  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const image_hosting_Key = import.meta.env.VITE_image_hosting_Key;
   const image_url = `https://api.imgbb.com/1/upload?key=${image_hosting_Key}`
   const onSubmit = async(data) => {
@@ -19,6 +22,29 @@ const AddItem = () => {
       },
     })
     console.log(res.data);
+    if(res.data.success){
+      //now sent data in database
+      const menuItem = {
+        name : data.name,
+        category : data.category,
+        price : parseFloat(data.price),
+        recipe : data.recipe,
+        image : res.data.data.display_url
+
+      }
+      const menuRes = await axiosSecure.post('/menu', menuItem)
+      if(menuRes.data.insertedId){
+        reset();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "New menu was created",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+      console.log(menuRes.data);
+    }
 
   };
   return (
@@ -50,11 +76,11 @@ const AddItem = () => {
                 <option disabled value='others'>
                   Select a category
                 </option>
-                <option value="Salad">Salad</option>
-                <option value="Pizza">Pizza</option>
-                <option value="Soups">Soups</option>
-                <option value="Dessert">Dessert</option>
-                <option value="Drinks">Drinks</option>
+                <option value="salad">Salad</option>
+                <option value="pizza">Pizza</option>
+                <option value="soups">Soups</option>
+                <option value="dessert">Dessert</option>
+                <option value="drinks">Drinks</option>
               </select>
             </div>
             <div className="form-control w-1/2">
