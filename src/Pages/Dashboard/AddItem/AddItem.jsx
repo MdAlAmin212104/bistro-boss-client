@@ -1,11 +1,25 @@
 import { FaUtensils } from "react-icons/fa";
 import SectionTitle from "../../../Component/SectionTitle/SectionTitle";
 import { useForm } from "react-hook-form";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+
 
 const AddItem = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
+  const axiosPublic = useAxiosPublic()
+  const image_hosting_Key = import.meta.env.VITE_image_hosting_Key;
+  const image_url = `https://api.imgbb.com/1/upload?key=${image_hosting_Key}`
+  const onSubmit = async(data) => {
+    const imageFile = { image: data.image[0] }
     console.log(data)
+    console.log("image file: " + imageFile);
+    const res = await axiosPublic.post(image_url, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    console.log(res.data);
+
   };
   return (
     <div>
@@ -28,12 +42,12 @@ const AddItem = () => {
               <label className="label">
                 <span className="label-text">Category</span>
               </label>
-              <select
+              <select 
+                defaultValue='others'
                 {...register("category", {required: true})}
                 className="select select-bordered"
               >
-                <option disabled selected>
-                  {''}
+                <option disabled value='others'>
                   Select a category
                 </option>
                 <option value="Salad">Salad</option>
