@@ -8,7 +8,7 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const UpdateItem = () => {
     const {name, category, price, recipe, _id } = useLoaderData();
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit } = useForm();
     const axiosSecure = useAxiosSecure();
     const axiosPublic = useAxiosPublic();
 
@@ -36,8 +36,7 @@ const UpdateItem = () => {
     
           }
           const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem)
-          if(menuRes.data.insertedId){
-            reset();
+          if(menuRes.data.modifiedCount > 0){
             Swal.fire({
               position: "top-end",
               icon: "success",
