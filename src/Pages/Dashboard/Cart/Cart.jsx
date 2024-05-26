@@ -5,6 +5,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
+  
   const [cart, refetch] = useCart();
   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
   const axiosSecure = useAxiosSecure()
