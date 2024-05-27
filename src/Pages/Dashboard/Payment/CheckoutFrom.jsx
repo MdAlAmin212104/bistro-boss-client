@@ -17,11 +17,13 @@ const CheckoutFrom = () => {
   const totalPrice =cart.reduce((sum, item) => sum + item.price, 0);
 
   useEffect(()=> {
-    axiosSecure.post('/create_payment_intent', {price: totalPrice})
+    if(totalPrice > 0){
+      axiosSecure.post('/create_payment_intent', {price: totalPrice})
       .then(res => {
         console.log(res.data.clientSecret)
         setClientSecret(res.data.clientSecret)
       })
+    }
   },[axiosSecure, totalPrice])
 
   const handleSubmit = async (e) => {
