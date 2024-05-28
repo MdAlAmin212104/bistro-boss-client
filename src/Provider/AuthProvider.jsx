@@ -21,12 +21,12 @@ const AuthProvider = ({ children }) => {
 
 
     const createUser = (email, password) => {
-        setLoading(false);
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
     const singInUser = (email, password) => {
-        setLoading(false);
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
     }
 
@@ -49,6 +49,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
+            
             setUser(currentUser);
             if(currentUser){
                 const userInfo = { email : currentUser.email };
@@ -56,14 +57,16 @@ const AuthProvider = ({ children }) => {
                     .then(res => {
                         //console.log(res.data);
                         localStorage.setItem('access_token', res.data.token);
+                        setLoading(false);
                     })
                 //set token and store client
             }else{
                 //remove token(if store token in the client site)
                 localStorage.removeItem('access_token');
+                setLoading(false);
                 
             }
-            setLoading(false);
+            
         });
         return () => unsubscribe;
 

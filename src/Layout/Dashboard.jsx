@@ -16,13 +16,14 @@ import useAdmin from "../hooks/useAdmin";
 const Dashboard = () => {
   // todo : get Admin from the database
   const [isAdmin] = useAdmin();
+  console.log(isAdmin);
 
   return (
     <div className="flex">
       {/* dashboard asidebar */}
       <div className="w-64 min-h-full bg-[#D1A054]">
         <ul className="menu pl-4">
-          {isAdmin && isAdmin.admin === true ? 
+          {isAdmin ? 
             <>
               <li>
                 <NavLink to="/dashboard/adminHome">

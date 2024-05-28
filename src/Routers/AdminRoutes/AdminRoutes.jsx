@@ -11,7 +11,7 @@ const AdminRoutes = ({children}) => {
         return <span className="loading loading-dots loading-md"></span>
     }
 
-    if(user && isAdmin?.admin){
+    if(user && isAdmin){
         return children;
     }
 
