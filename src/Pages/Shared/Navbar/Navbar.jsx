@@ -23,7 +23,7 @@ const Navbar = () => {
         <NavLink to="/menu">OUR MENU</NavLink>
       </li>
       <li>
-        <NavLink to="/order">OUR SHOP</NavLink>
+        <NavLink to="/order/salad">OUR SHOP</NavLink>
       </li>
       {
         user && isAdmin && <li><NavLink to="/dashboard/adminHome">Dashboard</NavLink></li>
